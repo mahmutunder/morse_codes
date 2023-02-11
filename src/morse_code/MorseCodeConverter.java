@@ -83,9 +83,17 @@ public class MorseCodeConverter extends JFrame {
         label = new JLabel("Enter a string:");
         label.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
         label.setFont(new Font(Font.SANS_SERIF,0,20));
+
         textField = new JTextField();
-        resultLabel = new JTextField(10);
+        textField.setFont(new Font(Font.SANS_SERIF,0,20));
+
+        resultLabel = new JTextField();
+        resultLabel.setFont(new Font(Font.SANS_SERIF,0,25));
+        resultLabel.setBackground(Color.red);
+        resultLabel.setForeground(Color.black);
+
         convertButton = new JButton("Convert");
+        convertButton.setFont(new Font(Font.SANS_SERIF,0,20));
 
         convertButton.addActionListener(e -> {
             String input = textField.getText().toUpperCase();
@@ -105,6 +113,7 @@ public class MorseCodeConverter extends JFrame {
         panel.add(convertButton);
         panel.add(resultLabel);
 
+        this.setLocation(400,400);
         this.add(panel);
         this.setVisible(true);
 
