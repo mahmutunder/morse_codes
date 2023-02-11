@@ -1,18 +1,18 @@
 package morse_code;
 
 /**
- *This program creates a simple GUI with a text
+ * This program creates a simple GUI with a text
  * field for entering a string,
  * a button for converting the string to Morse
  * code, and a label for displaying the result.
- * @Author Mahmut under
  *
+ * @Author Mahmut under
  */
 
+import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
-import javax.swing.*;
 
 public class MorseCodeConverter extends JFrame {
 
@@ -66,23 +66,26 @@ public class MorseCodeConverter extends JFrame {
         MORSE_CODE_MAP.put('Z', "--..");
     }
 
-    private  JPanel panel;
+    private JPanel panel;
     private JLabel label;
     private JTextField textField;
     private JTextField resultLabel;
+    private JButton convertButton;
 
-    public MorseCodeConverter(){
+    public MorseCodeConverter() {
         this.setTitle("Morse Code Converter");
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setSize(400, 200);
+        this.setSize(800, 400);
 
-         panel = new JPanel();
+        panel = new JPanel();
         panel.setLayout(new GridLayout(3, 2));
 
-         label = new JLabel("Enter a string:");
-         textField = new JTextField();
-         resultLabel = new JTextField(10);
-        JButton convertButton = new JButton("Convert");
+        label = new JLabel("Enter a string:");
+        label.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
+        label.setFont(new Font(Font.SANS_SERIF,0,20));
+        textField = new JTextField();
+        resultLabel = new JTextField(10);
+        convertButton = new JButton("Convert");
 
         convertButton.addActionListener(e -> {
             String input = textField.getText().toUpperCase();
@@ -90,6 +93,8 @@ public class MorseCodeConverter extends JFrame {
             for (char c : input.toCharArray()) {
                 if (MORSE_CODE_MAP.containsKey(c)) {
                     result.append(MORSE_CODE_MAP.get(c)).append(" ");
+                } else {
+                    JOptionPane.showMessageDialog(null, "No special characters, it will be skip");
                 }
             }
             resultLabel.setText(result.toString());
@@ -102,13 +107,13 @@ public class MorseCodeConverter extends JFrame {
 
         this.add(panel);
         this.setVisible(true);
-        
-        
+
+
     }
 
     public static void main(String[] args) {
-       new MorseCodeConverter();
-        
+        new MorseCodeConverter();
+
     }
 }
 
