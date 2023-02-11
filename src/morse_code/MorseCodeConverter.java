@@ -1,5 +1,14 @@
 package morse_code;
 
+/**
+ *This program creates a simple GUI with a text
+ * field for entering a string,
+ * a button for converting the string to Morse
+ * code, and a label for displaying the result.
+ * @Author Mahmut under
+ *
+ */
+
 import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
@@ -7,8 +16,12 @@ import javax.swing.*;
 
 public class MorseCodeConverter extends JFrame {
 
-    
+    /**
+     * static map block load java memory before gui
+     * it is final because key value pairs to not change
+     */
     private static final Map<Character, String> MORSE_CODE_MAP = new HashMap<>();
+
 
     static {
         MORSE_CODE_MAP.put(' ', "space");
