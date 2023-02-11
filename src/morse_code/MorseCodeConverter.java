@@ -1,19 +1,27 @@
 package morse_code;
 
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+/**
+ * This program creates a simple GUI with a text
+ * field for entering a string,
+ * a button for converting the string to Morse
+ * code, and a label for displaying the result.
+ *
+ * @Author Mahmut under
+ */
+
+import javax.swing.*;
+import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
 
-public class MorseCodeConverter {
+public class MorseCodeConverter extends JFrame {
 
+    /**
+     * static map block load java memory before gui
+     * it is final because key value pairs to not change
+     */
     private static final Map<Character, String> MORSE_CODE_MAP = new HashMap<>();
+
 
     static {
         MORSE_CODE_MAP.put(' ', "space");
@@ -58,31 +66,46 @@ public class MorseCodeConverter {
         MORSE_CODE_MAP.put('Z', "--..");
     }
 
-    public static void main(String[] args) {
-        JFrame frame = new JFrame("Morse Code Converter");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(400, 200);
+    private JPanel panel;
+    private JLabel label;
+    private JTextField textField;
+    private JTextField resultLabel;
+    private JButton convertButton;
 
-        JPanel panel = new JPanel();
+    public MorseCodeConverter() {
+        this.setTitle("Morse Code Converter");
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setSize(800, 400);
+
+        panel = new JPanel();
         panel.setLayout(new GridLayout(3, 2));
 
-        JLabel label = new JLabel("Enter a string:");
-        JTextField textField = new JTextField();
-        JLabel resultLabel = new JLabel("");
-        JButton convertButton = new JButton("Convert");
+        label = new JLabel("Enter a string:");
+        label.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
+        label.setFont(new Font(Font.SANS_SERIF,0,20));
 
-        convertButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String input = textField.getText().toUpperCase();
-                StringBuilder result = new StringBuilder();
-                for (char c : input.toCharArray()) {
-                    if (MORSE_CODE_MAP.containsKey(c)) {
-                        result.append(MORSE_CODE_MAP.get(c)).append(" ");
-                    }
+        textField = new JTextField();
+        textField.setFont(new Font(Font.SANS_SERIF,0,20));
+
+        resultLabel = new JTextField();
+        resultLabel.setFont(new Font(Font.SANS_SERIF,0,25));
+        resultLabel.setBackground(Color.red);
+        resultLabel.setForeground(Color.black);
+
+        convertButton = new JButton("Convert");
+        convertButton.setFont(new Font(Font.SANS_SERIF,0,20));
+
+        convertButton.addActionListener(e -> {
+            String input = textField.getText().toUpperCase();
+            StringBuilder result = new StringBuilder();
+            for (char c : input.toCharArray()) {
+                if (MORSE_CODE_MAP.containsKey(c)) {
+                    result.append(MORSE_CODE_MAP.get(c)).append(" ");
+                } else {
+                    JOptionPane.showMessageDialog(null, "No special characters, it will be skip");
                 }
-                resultLabel.setText(result.toString());
             }
+            resultLabel.setText(result.toString());
         });
 
         panel.add(label);
@@ -90,8 +113,16 @@ public class MorseCodeConverter {
         panel.add(convertButton);
         panel.add(resultLabel);
 
-        frame.add(panel);
-        frame.setVisible(true);
+        this.setLocation(400,400);
+        this.add(panel);
+        this.setVisible(true);
+
+
+    }
+
+    public static void main(String[] args) {
+        new MorseCodeConverter();
+
     }
 }
 
