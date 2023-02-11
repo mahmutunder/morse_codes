@@ -1,18 +1,13 @@
 package morse_code;
 
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.*;
 import java.util.HashMap;
 import java.util.Map;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
+import javax.swing.*;
 
-public class MorseCodeConverter {
+public class MorseCodeConverter extends JFrame {
 
+    
     private static final Map<Character, String> MORSE_CODE_MAP = new HashMap<>();
 
     static {
@@ -58,31 +53,33 @@ public class MorseCodeConverter {
         MORSE_CODE_MAP.put('Z', "--..");
     }
 
-    public static void main(String[] args) {
-        JFrame frame = new JFrame("Morse Code Converter");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(400, 200);
+    private  JPanel panel;
+    private JLabel label;
+    private JTextField textField;
+    private JTextField resultLabel;
 
-        JPanel panel = new JPanel();
+    public MorseCodeConverter(){
+        this.setTitle("Morse Code Converter");
+        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        this.setSize(400, 200);
+
+         panel = new JPanel();
         panel.setLayout(new GridLayout(3, 2));
 
-        JLabel label = new JLabel("Enter a string:");
-        JTextField textField = new JTextField();
-        JLabel resultLabel = new JLabel("");
+         label = new JLabel("Enter a string:");
+         textField = new JTextField();
+         resultLabel = new JTextField(10);
         JButton convertButton = new JButton("Convert");
 
-        convertButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                String input = textField.getText().toUpperCase();
-                StringBuilder result = new StringBuilder();
-                for (char c : input.toCharArray()) {
-                    if (MORSE_CODE_MAP.containsKey(c)) {
-                        result.append(MORSE_CODE_MAP.get(c)).append(" ");
-                    }
+        convertButton.addActionListener(e -> {
+            String input = textField.getText().toUpperCase();
+            StringBuilder result = new StringBuilder();
+            for (char c : input.toCharArray()) {
+                if (MORSE_CODE_MAP.containsKey(c)) {
+                    result.append(MORSE_CODE_MAP.get(c)).append(" ");
                 }
-                resultLabel.setText(result.toString());
             }
+            resultLabel.setText(result.toString());
         });
 
         panel.add(label);
@@ -90,8 +87,15 @@ public class MorseCodeConverter {
         panel.add(convertButton);
         panel.add(resultLabel);
 
-        frame.add(panel);
-        frame.setVisible(true);
+        this.add(panel);
+        this.setVisible(true);
+        
+        
+    }
+
+    public static void main(String[] args) {
+       new MorseCodeConverter();
+        
     }
 }
 
